@@ -9,7 +9,7 @@ The main aim of this repository is twofold:
 
 1. **Personal Learning**: To document my learnings and understanding of Linux fundamentals. This serves as a personal reference and a way to track my progress as I delve deeper into the world of Linux.
   
-2. **Showcasing**: To showcase my skills and knowledge in Linux to potential employers, collaborators
-<h4><b><a link href = "Snapshots">Click here for the snapshots</a></b></h4><br>
-<p>To view the  <b>Documentation</b> of all my learnings : <a link href = "Documentation.md">Click here</a></p>
+2. **Showcasing**: To showcase my skills and knowledge in Linux to potential employers, collaborators<br>
+<h4>📸<b><a link href = "Snapshots">Click here for the snapshots</a></b>📸</h4>
+<h4>📄<a link href = "Documentation.md">Click here for Documentation</a>📄</h4>
 
