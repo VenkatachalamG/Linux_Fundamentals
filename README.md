@@ -11,5 +11,5 @@ The main aim of this repository is twofold:
   
 2. **Showcasing**: To showcase my skills and knowledge in Linux to potential employers, collaborators
 <h4><b><a link href = "Snapshots">Click here for the snapshots</a></b></h4><br>
-<p>To view the  <b>Documentation</b> of all my learnings : <a link href = "https://github.com/VenkatachalamG/Linux_Fundamentals">Click here</a></p>
+<p>To view the  <b>Documentation</b> of all my learnings : <a link href = "Documentation.md">Click here</a></p>
 
