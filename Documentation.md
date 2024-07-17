@@ -96,3 +96,72 @@
 
 🚀<b>Snapshots for Linux Systemctl commands, Linux GUI, File viewing, Boot process diagram, Locating Applications, Swicthing User, Shutting Down : <a link href="Snapshots/Linux Basic Boot Process and GUI operations with system and files">Click here</a></b>
 
+<h2>System Settings</h2>
+<p>The System Settings panel allows you to control most of the basic configuration options and desktop settings, such as specifying the screen resolution, managing network connections, or changing the date and time of the system.</p>
+<p>For the GNOME Desktop Manager, one clicks on the upper right-hand corner and then selects the tools image (screwdriver crossed with a wrench or a gear). Depending on your distribution, you may find other ways to get into the settings configuration as well.</p>
+
+![image](https://github.com/user-attachments/assets/993db969-e8f3-4b11-af02-2fbe50c10dd5)
+<strong><p>System settings in Linux</p></strong>
+
+<h3>gnome-tweaks</h3>
+<p>A lot of personalized configuration settings do not appear on the settings menus. Instead, you have to launch a tool called either <em>gnome-tweaks</em> (or <em>gnome-tweak-tool</em> on older Linux distributions). We have not really discussed working at the command line yet, but you can always launch a program such as this by doing <em>Alt-F2</em> and typing in the command. Some distributions have a link to the tweaks menus in the settings, but for some mysterious reason, many obscure this tool's existence, and it becomes hard to discover how to modify even rather basic desktop attributes and behavior.</p>
+<p>Important things you can do with this tool include selecting a theme, configuring extensions which you can get from your distribution or download from the Internet, control fonts, modify the keyboard layout, and set which programs start when you login.</p>
+<p>The most recent GNOME versions have removed a lot of the functionality of <em>gnome-tweaks</em>; extensions now have to be configured using a new app called <em>gnome-extensions-app</em>.</p>
+
+<h3>Display Settings</h3>
+<p>Clicking on <em>Settings > Displays</em> (or <em>Settings > Devices > Displays</em>) will expose the most common settings for changing the desktop appearance. You can also bring this up by right-clicking anywhere on the desktop and selecting <em>Display Settings</em>. These settings function independently of the specific display drivers you are running. The exact appearance will depend enormously on how many monitors you have and other factors, such as Linux distribution and particular version.</p>
+<p>If your system uses a proprietary video card driver (usually from nVidia or AMD), you will probably have a separate configuration program for that driver. This program may give more configuration options, but may also be more complicated, and might require sysadmin (root) access. If possible, you should configure the settings in the Displays panel rather than with the proprietary program.</p>
+<p>On systems utilizing the X Window system, the server which actually provides the GUI, uses <em>/etc/X11/xorg.conf</em> as its configuration file if it exists; In modern Linux distributions, this file is usually present only in unusual circumstances, such as when certain less common graphic drivers are in use. Changing this configuration file directly is usually for more advanced users.</p>
+
+![Screen Display Settings](https://github.com/user-attachments/assets/a90fe23f-3493-4f03-b6c3-ce041e783335)
+<strong><p>System Display settings in Linux</p></strong>
+
+<h3>Date and Time Settings</h3>
+<p>By default, Linux always uses Coordinated Universal Time (UTC) for its own internal timekeeping. Displayed or stored time values rely on the system time zone setting to get the proper time. UTC is similar to, but more accurate than, Greenwich Mean Time (GMT).</p>
+<p>If you click on the time displayed on the top panel, you can adjust the format with which the date and time is shown; on some distributions, you can also alter the values.</p>
+<p>The more detailed date and time settings can be selected from the Date & Time window in the System Settings Menu.</p>
+
+<h3>Network Time Protocol</h3>
+<p>The Network Time Protocol (NTP) is the most popular and reliable protocol for setting the local time by consulting established Internet servers. Linux distributions always come with a working NTP setup, which refers to specific time servers run or relied on by the distribution. This means that no setup, beyond "on" or "off", is generally required for network time synchronization.</p>
+
+
+![picture1](https://github.com/user-attachments/assets/b5bf66aa-f48e-4b02-a10f-ad68fc4907e2)
+<strong><p>Sample Networking Diagram</p></strong>
+
+<h3>Network Configuration</h3>
+<p>All Linux distributions have network configuration files, but file formats and locations can differ from one distribution to another. Hand editing of these files can handle quite complicated setups, but is not very dynamic or easy to learn and use. <em>Network Manager</em> was developed to make things easier and more uniform across distributions. It can list all available networks (both wired and wireless), allow the choice of a wired, wireless, or mobile broadband network, handle passwords, and set up Virtual Private Networks (VPNs). Except for unusual situations, it is generally best to let Network Manager establish your connections and keep track of your settings.</p>
+<p>Wireless networks are usually not connected by default. You can view the list of available wireless networks and see which one (if any) you are currently connected to by using Network Manager. You can then add, edit, or remove known wireless networks, and also specify which ones you want connected by default when present.</p>
+
+![List of available networks](https://github.com/user-attachments/assets/b4bbfc63-549a-45f3-9bb9-e766f40e648c)
+<strong><p>List of all available Wireless Connections</strong></p>
+
+<p>To configure a wireless network in any recent GNOME-based distribution:</p>
+<ol>
+    <li>Click on the upper-right corner of the top panel, which brings up a settings and/or network window. While the exact appearance will depend on Linux distribution and version, it will always be possible to click on a <em>Wi-Fi</em> sub-menu, as long as the hardware is present. Here is an example from a RHEL 8 system:</li>
+    <li>Select the wireless network you wish to connect to. If it is a secure network, the first time it will request that you enter the appropriate password. By default, the password will be saved for subsequent connections.</li>
+</ol>
+<p>If you click on <em>Wi-Fi Settings</em>, you will bring up the third screenshot. If you click on the Gear icon for any connection, you can configure it in more detail.</p>
+
+![Confiiguring Connected Networks](https://github.com/user-attachments/assets/61a5a738-231b-4185-8ed5-011d2d683e09)
+<p><strong>Configuring the Network of Your Choice</strong>p></strong>
+
+<h3>Installing and Updating Software</h3>
+<p>Each package in a Linux distribution provides one piece of the system, such as the Linux kernel, the C compiler, utilities for manipulating text or configuring the network, or for your favorite web browsers and email clients.</p>
+<p>Packages often depend on each other. For example, because your email client can communicate using SSL/TLS, it will depend on a package that provides the ability to encrypt and decrypt SSL and TLS communication and will not install unless that package is also installed at the same time.</p>
+<p>All systems have a lower-level utility that handles the details of unpacking a package and putting the pieces in the right places. However, most of the time, you will be working with a higher-level utility that knows how to download and install packages directly from the Internet and can manage dependencies and groups for you.</p>
+
+<h3>Debian Packaging</h3>
+<p>Let’s look at the package management for the Debian family system.</p>
+<p><em>dpkg</em> is the underlying package manager for these systems. It can install, remove, and build packages. Unlike higher-level package management systems, it does not automatically download and install packages and satisfy their dependencies.</p>
+<p>For Debian-based systems, the higher-level package management system is the Advanced Package Tool (APT) system of utilities. Generally, while each distribution within the Debian family uses APT, it creates its own user interface on top of it (for example, apt and apt-get, synaptic, gnome-software, Ubuntu Software Center, etc). Although apt repositories are generally compatible with each other, the software they contain generally is not. Therefore, most repositories target a particular distribution (like Ubuntu), and often software distributors ship with multiple repositories to support multiple distributions.</p>
+
+![picture2](https://github.com/user-attachments/assets/2bcc9cac-3ba9-48d0-b4f1-9a8c1cd21080)
+<strong><p>Debian Packaging Diagram</p></strong>
+
+<h3>Package Management in the Debian Family System</h3>
+
+<h3>Red Hat Package Manager (RPM)</h3>
+<p>Red Hat Package Manager (RPM) is the other package management system popular on Linux distributions. It was developed by Red Hat and adopted by a number of other distributions, including Fedora, CentOS, SUSE/openSUSE, Oracle Linux, and others.</p>
+<p>The higher-level package manager differs between distributions. Red Hat family distributions historically use RHEL/CentOS, and Fedora uses <em>dnf</em>, while SUSE family distributions such as openSUSE also use RPM but use the <em>zypper</em> interface.</p>
+
+🚀<b>Snapshots for Linux System Settings, Display Settings, Date and Time, Wireless Network Configurations : <a link href="Snapshots/Linux Graphical System Interface">Click here</a></b>
