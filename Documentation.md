@@ -165,3 +165,92 @@
 <p>The higher-level package manager differs between distributions. Red Hat family distributions historically use RHEL/CentOS, and Fedora uses <em>dnf</em>, while SUSE family distributions such as openSUSE also use RPM but use the <em>zypper</em> interface.</p>
 
 🚀<b>Snapshots for Linux System Settings, Display Settings, Date and Time, Wireless Network Configurations : <a link href="Snapshots/Linux Graphical System Interface">Click here</a></b>
+
+<div>
+    <h2>Network-Aware Applications</h2>
+    <p><strong>FileZilla:</strong> An intuitive graphical FTP client that supports FTP, Secure File Transfer Protocol (SFTP), and FTP Secured (FTPS). It is used to transfer files to and from FTP servers.</p>
+    <p><strong>Pidgin:</strong> A versatile messaging application that allows access to various messaging networks, including GTalk, AIM, ICQ, MSN, and IRC.</p>
+    <p><strong>HexChat:</strong> A user-friendly application for accessing Internet Relay Chat (IRC) networks.</p>
+</div>
+
+![filezilla](https://github.com/user-attachments/assets/620a8843-6dcf-481e-ae40-9085acac1cec)
+<strong><p>Filezilla</p></strong>
+
+<div>
+    <h2>Office Applications</h2>
+    <p>Most day-to-day computer systems have productivity applications (sometimes called office suites) available or installed. Each suite is a collection of closely coupled programs used to create and edit different kinds of files:</p>
+    <ul>
+        <li>Text (articles, books, reports, etc.) → Using LibreOffice Writer</li>
+        <li>Spreadsheets → Using LibreOffice Calc</li>
+        <li>Presentations → Using LibreOffice Impress</li>
+        <li>Graphical objects → Using LibreOffice Draw</li>
+    </ul>
+    <p>Most Linux distributions offer LibreOffice, an open source office suite that started in 2010 and has evolved from OpenOffice. In addition, Linux users have full access to Internet-based office suites such as Google Docs and Microsoft Office 365.</p>
+</div>
+
+![libreofficecomp](https://github.com/user-attachments/assets/4548a0e3-2873-4b0f-86fb-fb45c0d23ffe)
+<strong><p>Libre Office Components</p></strong>
+
+<div>
+    <h2>Development Applications</h2>
+    <p>Linux distributions come with a comprehensive set of applications and tools for developing and maintaining both user applications and the kernel. These tightly integrated tools include:</p>
+    <ul>
+        <li>Advanced Editors: Customized for programmers, such as vi and Emacs.</li>
+        <li>Compilers: For various languages, including gcc and clang (C/C++) as well as newer languages like Golang and Rust.</li>
+        <li>Debuggers: Tools like gdb, graphical front ends, and Valgrind.</li>
+        <li>Performance Tools: Programs for measuring and monitoring performance, ranging from user-friendly interfaces to advanced tools for experienced engineers.</li>
+        <li>Version Control Systems: Git (with interfaces like GitHub and GitLab) and older systems like Apache Subversion.</li>
+        <li>Integrated Development Environments (IDEs): Complete setups like Eclipse and Visual Studio Code.</li>
+    </ul>
+    <p>Unlike other operating systems where these tools often need to be purchased and installed separately, on Linux they are available at no cost through standard package installation systems or direct downloads from maintainers.</p>
+</div>
+
+![eclipse](https://github.com/user-attachments/assets/4ed79f13-a485-443b-ae31-ed7eaeb608a7)
+<strong><p>Eclipse IDE</p></strong>
+
+<div>
+    <h2>Sound Players</h2>
+    <p><strong>Amarok:</strong> A mature MP3 player with a graphical interface that plays audio and video files, and streams online audio. It allows you to create playlists and uses a database to store information about your music collection.</p>
+    <p><strong>Audacity:</strong> A simple interface application used to record and edit sounds.</p>
+    <p><strong>Audacious:</strong> Another versatile audio media player.</p>
+    <p><strong>Rhythmbox:</strong> Supports various digital music sources, including streaming Internet audio and podcasts. It offers a search function for audio in a library and supports smart playlists with an automatic update feature based on specified criteria.</p>
+</div>
+
+![amarok](https://github.com/user-attachments/assets/1424b276-1aaa-4abc-b0b1-af9ef5a7de77)
+<strong><p>Amarok</p></strong>
+
+<div>
+    <h2>Movie Editors</h2>
+    <p><strong>Blender:</strong> A professional tool for creating 3D animation and design, starting with modeling. It includes powerful tools for camera capture, recording, editing, enhancing, and creating video, each with a specific focus.</p>
+    <p><strong>Cinelerra:</strong> Allows you to capture, compose, and edit audio and video.</p>
+    <p><strong>FFmpeg:</strong> A versatile tool for recording, converting, and streaming audio and video. It serves as a format converter and includes additional tools like ffplay and ffserver.</p>
+</div>
+
+![blender](https://github.com/user-attachments/assets/d9e164b4-4a26-4c8e-a697-2eaff7865769)
+<strong><p>Blender</p></strong>
+
+<div>
+    <h2>GIMP (GNU Image Manipulation Program)</h2>
+    <p>Graphic editors allow you to create, edit, view, and organize images of various formats, like JPEG, PNG, GIF, and TIFF. The GNU Image Manipulation Program (GIMP) is a feature-rich image retouching and editing tool similar to Adobe Photoshop. Some features of GIMP include:</p>
+    <ul>
+        <li>It can handle any image file format.</li>
+        <li>It has many special purpose plugins and filters.</li>
+        <li>It provides extensive information about the image, such as layers, channels, and histograms.</li>
+    </ul>
+</div>
+
+![gimpeditor](https://github.com/user-attachments/assets/e1c6796a-6bd0-40e8-a9be-f21542ba5155)
+<strong><p>GIMP Editor</p></strong>
+
+<div>
+    <h2>Image and Document Editing Tools</h2>
+    <p><strong>Eye of Gnome (eog):</strong> An image viewer with slide show capabilities and basic editing tools like rotate and resize. It allows easy navigation through images in a directory.</p>
+    <p><strong>Inkscape:</strong> A feature-rich image editor that works with layers and transformations, often compared to Adobe Illustrator.</p>
+    <p><strong>Convert:</strong> A command-line tool (part of the ImageMagick suite) for modifying image files. It offers file format conversion and numerous image modifications, such as blur, resize, and despeckle.</p>
+    <p><strong>Scribus:</strong> A WYSIWYG document creation tool for publishing, providing numerous editing tools for professional document design.</p>
+</div>
+
+![inkspace](https://github.com/user-attachments/assets/d16cb698-e04b-4c32-98aa-85efb80b8d20)
+<strong><p>Inkspace</p></strong>
+
+🚀<b>Snapshots for Linux System Common Applications : <a link href="Snapshots/Common Applications">Click here</a></b>
