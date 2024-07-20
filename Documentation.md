@@ -254,3 +254,244 @@
 <strong><p>Inkspace</p></strong>
 
 🚀<b>Snapshots for Linux System Common Applications : <a link href="Snapshots/Common Applications">Click here</a></b>
+
+<h2>The Command Line</h2>
+
+![Command Line Terminal](https://github.com/user-attachments/assets/4ced0c8f-ab7c-4c92-8d1b-2ac87707dead)
+<strong><p>Command Line </p></strong>
+<p>Most input lines entered at the shell prompt have three basic elements:</p>
+<ul>
+    <li>Command</li>
+    <li>Options</li>
+    <li>Arguments</li>
+</ul>
+<p>The command is the name of the program or script you are executing. It may be followed by one or more options (or switches) that modify what the command may do. Options usually start with one or two dashes, for example, <code>-p</code> or <code>--print</code>, in order to differentiate them from arguments, which represent what the command operates on.</p>
+<p>However, plenty of commands have no options, no arguments, or neither. In addition, other elements (such as setting environment variables) can also appear on the command line when launching a task.</p>
+
+<h3>sudo</h3>
+<p>All the demonstrations created have a user configured with <code>sudo</code> capabilities to provide the user with administrative (admin) privileges when required. <code>sudo</code> allows users to run programs using the security privileges of another user, generally root (superuser).</p>
+<p>On your own systems, you may need to set up and enable <code>sudo</code> to work correctly. To do this, you need to follow some steps that we will discuss but not explain in much detail right now. Many distributions, including Ubuntu, configure <code>sudo</code> for you during installation. On other Linux distributions, you will need to configure <code>sudo</code> to work properly after the initial installation.</p>
+
+<h4>NOTE: Steps for Setting Up and Running <code>sudo</code></h4>
+<ol>
+    <li>
+        <p>You will need to make modifications as the administrative, or superuser, root. While <code>sudo</code> will become the preferred method of doing this, we do not have it set up yet, so we will need to use <code>su</code> instead. At the command line prompt, type <code>su</code> and press <code>Enter</code>. You will then be prompted for the root password, so enter it and press <code>Enter</code>. You will notice that nothing is printed; this is so others cannot see the password on the screen. You should end up with a different looking prompt, often ending with ‘#’. For example:</p>
+        <pre>$ su<br>Password:<br>#</pre>
+    </li>
+    <li>
+        <p>Now, you need to create a configuration file to enable your user account to use <code>sudo</code>. Typically, this file is created in the <code>/etc/sudoers.d/</code> directory with the name of the file the same as your username. For example, for this demo, let’s say your username is <code>student</code>. After doing step 1, you would then create the configuration file for <code>student</code> by doing this:</p>
+        <pre># echo "student ALL=(ALL) ALL" > /etc/sudoers.d/student</pre>
+    </li>
+    <li>
+        <p>Finally, some Linux distributions will complain if you do not also change permissions on the file by doing:</p>
+        <pre># chmod 440 /etc/sudoers.d/student</pre>
+    </li>
+</ol>
+<p>That should be it. For the rest of this course, if you use <code>sudo</code> you should be properly set up. When using <code>sudo</code>, by default you will be prompted to give a password (your own user password) at least the first time you do it within a specified time interval.</p>
+
+<h3>Turning Off the Graphical Desktop</h3>
+<p>Linux distributions can start and stop the graphical desktop in various ways. The exact method differs among distributions and between versions. For the newer system-based distributions, the display manager is run as a service, and you can stop the GUI desktop with the <code>systemctl</code> utility. In addition, most distributions will also work with the <code>telinit</code> command, as in:</p>
+<pre>$ sudo systemctl stop gdm (or sudo telinit 3)</pre>
+<p>and restart it (after logging into the console) with:</p>
+<pre>$ sudo systemctl start gdm (or sudo telinit 5)</pre>
+
+<h3>Logging In and Out</h3>
+<p>An available text terminal will prompt for a username (with the string <code>login:</code>) and password. When typing your password, nothing is displayed on the terminal (not even a <code>*</code> to indicate that you typed in something), to prevent others from seeing your password. After you have logged into the system, you can perform basic operations.</p>
+<p>Once your session is started (either by logging into a text terminal or via a graphical terminal program), you can also connect and log into remote systems by using Secure SHell (SSH). For example, by typing <code>ssh student@remote-server.com</code>, SSH would connect securely to the remote machine (<code>remote-server.com</code>) and give <code>student</code> a command line terminal window, using either a password (as with regular logins) or cryptographic key to sign in without providing a password to verify the identity.</p>
+
+![loginout](https://github.com/user-attachments/assets/94bffffb-c531-4cf2-b9d6-405794523677)
+<strong><p>Logging in and out</p></strong>
+
+<h3>Rebooting and Shutting Down</h3>
+<p>The preferred method to shut down or reboot the system is to use the <code>shutdown</code> command. This sends a warning message, and then prevents further users from logging in. The <code>init</code> process will then control shutting down or rebooting the system. It is important to always shut down properly; failure to do so can result in damage to the system and/or loss of data.</p>
+<p>The <code>halt</code> and <code>poweroff</code> commands issue <code>shutdown -h</code> to halt the system; <code>reboot</code> issues <code>shutdown -r</code> and causes the machine to reboot instead of just shutting down. Both rebooting and shutting down from the command line requires superuser (root) access.</p>
+<p>When administering a multi-user system, you have the option of notifying all users prior to shutdown, as in:</p>
+
+<h3>Locating Applications</h3>
+<p>Depending on the specifics of your particular distribution's policy, programs and software packages can be installed in various directories. In general, executable programs and scripts should live in the <code>/bin</code>, <code>/usr/bin</code>, <code>/sbin</code>, <code>/usr/sbin</code> directories, or somewhere under <code>/opt</code>. They can also appear in <code>/usr/local/bin</code> and <code>/usr/local/sbin</code>, or in a directory in a user's account space, such as <code>/home/student/bin</code>.</p>
+<p>One way to locate programs is to employ the <code>which</code> utility. For example, to find out exactly where the <code>diff</code> program resides on the filesystem:</p>
+
+<h3>Accessing Directories</h3>
+<p>When you first log into a system or open a terminal, the default directory should be your home directory. You can see the exact location by typing <code>echo $HOME</code>. However, most Linux distributions open new graphical terminals in <code>$HOME/Desktop</code> instead.</p>
+
+<h4>Table: Commands useful for directory navigation</h4>
+<table>
+    <tr>
+        <th>COMMAND</th>
+        <th>RESULT</th>
+    </tr>
+    <tr>
+        <td><code>pwd</code></td>
+        <td>Displays the present working directory</td>
+    </tr>
+    <tr>
+        <td><code>cd ~</code> or <code>cd</code></td>
+        <td>Change to your home directory; shortcut name is <code>~</code> (tilde)</td>
+    </tr>
+    <tr>
+        <td><code>cd ..</code></td>
+        <td>Change to parent directory (<code>..</code>)</td>
+    </tr>
+    <tr>
+        <td><code>cd -</code></td>
+        <td>Change to previous working directory; <code>-</code> (minus)</td>
+    </tr>
+</table>
+
+<h3>Understanding Absolute and Relative Paths</h3>
+<h4>Absolute pathname</h4>
+<p>An absolute pathname begins with the root directory (<code>/</code>) and follows the tree, branch by branch, until it reaches the desired directory or file. Absolute paths always start with <code>/</code>.</p>
+
+![absrelpath](https://github.com/user-attachments/assets/372fcc04-078f-4aad-b1ff-5c5505b769b4)
+<strong><p>Absolute and Relative Paths</p></strong>
+
+<h4>Relative pathname</h4>
+<p>A relative pathname starts from the present working directory. Relative paths never start with <code>/</code>.</p>
+<p>Multiple slashes (<code>/</code>) between directories and files are allowed, but all but one slash between elements in the pathname is ignored by the system. While <code>////usr//bin</code> is valid, it is seen as just <code>/usr/bin</code> by the system.</p>
+<p>Most of the time, it is most convenient to use relative paths, which require less typing. Usually, you take advantage of the shortcuts
+
+ <code>.</code> (current directory) and <code>..</code> (parent directory) when specifying relative paths. However, in shell scripts and programs, it is wise to use absolute paths to avoid unexpected results.</p>
+
+<h3>Copying Files and Directories</h3>
+<p>To copy a file or directory, the <code>cp</code> command is used. This command takes at least two arguments: the name of the source file or directory, and the name of the destination file or directory.</p>
+<p>To create a backup copy of <code>file1</code>, you could run:</p>
+<pre>$ cp file1 file1.bak</pre>
+<p>To copy <code>file1</code> to <code>/tmp</code> you could run:</p>
+<pre>$ cp file1 /tmp</pre>
+<p>To copy multiple files to another directory, the destination must be a directory:</p>
+<pre>$ cp file1 file2 file3 directory/</pre>
+<p>When copying directories, you must specify the <code>-r</code> (recursive) option:</p>
+<pre>$ cp -r dir1 dir2</pre>
+
+<h3>Moving and Renaming Files</h3>
+<p>To move files or directories, or to rename them, the <code>mv</code> command is used. This command takes at least two arguments: the name of the source file or directory, and the name of the destination file or directory.</p>
+<p>To rename <code>file1</code> to <code>file2</code>:</p>
+<pre>$ mv file1 file2</pre>
+<p>To move <code>file1</code> to <code>/tmp</code>:</p>
+<pre>$ mv file1 /tmp</pre>
+<p>To move multiple files to another directory:</p>
+<pre>$ mv file1 file2 file3 directory/</pre>
+<p>To rename a directory:</p>
+<pre>$ mv dir1 dir2</pre>
+
+<h3>Removing Files and Directories</h3>
+<p>To remove a file, the <code>rm</code> command is used. This command takes at least one argument: the name of the file to remove. To remove multiple files, simply specify all the filenames as arguments:</p>
+<pre>$ rm file1 file2 file3</pre>
+<p>To remove a directory, the <code>rmdir</code> command is used. This command takes at least one argument: the name of the directory to remove. However, <code>rmdir</code> can only be used to remove empty directories. To remove a non-empty directory, you must use the <code>rm</code> command with the <code>-r</code> option:</p>
+<pre>$ rm -r dir1</pre>
+
+<h3>Creating Files and Directories</h3>
+<p>To create a file, the <code>touch</code> command is used. This command takes at least one argument: the name of the file to create. To create multiple files, simply specify all the filenames as arguments:</p>
+<pre>$ touch file1 file2 file3</pre>
+<p>To create a directory, the <code>mkdir</code> command is used. This command takes at least one argument: the name of the directory to create. To create multiple directories, simply specify all the directory names as arguments:</p>
+<pre>$ mkdir dir1 dir2 dir3</pre>
+
+<h3>Viewing Files</h3>
+<p>To view the contents of a file, the <code>cat</code> command is used. This command takes at least one argument: the name of the file to view. To view multiple files, simply specify all the filenames as arguments:</p>
+<pre>$ cat file1 file2 file3</pre>
+<p>To view the contents of a file one page at a time, the <code>less</code> command is used. This command takes at least one argument: the name of the file to view. To view multiple files, simply specify all the filenames as arguments:</p>
+<pre>$ less file1 file2 file3</pre>
+
+<h3>Editing Files</h3>
+<p>To edit a file, the <code>nano</code> command is used. This command takes at least one argument: the name of the file to edit. To edit multiple files, simply specify all the filenames as arguments:</p>
+<pre>$ nano file1 file2 file3</pre>
+<p>To edit a file with the <code>vim</code> command, you can use:</p>
+<pre>$ vim file1</pre>
+
+<h2>File Management</h2>
+
+<h3>Hard Links</h3>
+<p>The <code>ln</code> utility is used to create hard links and (with the <code>-s</code> option) soft links, also known as symbolic links or symlinks. These two kinds of links are very useful in UNIX-based operating systems.</p>
+<p>Suppose that <code>file1</code> already exists. A hard link, called <code>file2</code>, is created with the command:</p>
+<pre>$ ln file1 file2</pre>
+<p>Note that two files now appear to exist. However, a closer inspection of the file listing shows that this is not quite true.</p>
+<pre>$ ls -li file1 file2</pre>
+<p>The <code>-i</code> option to <code>ls</code> prints out in the first column the inode number, which is a unique quantity for each file object. This field is the same for both of these files; what is really going on here is that it is only one file, but it has more than one name associated with it, as is indicated by the 2 that appears in the <code>ls</code> output. Thus, there was already another object linked to <code>file1</code> before the command was executed.</p>
+
+
+![hardlinks](https://github.com/user-attachments/assets/db6302e6-bbba-41aa-a9c4-def6757af418)
+<strong><p>Hard links</p></strong>
+
+<h3>Soft (Symbolic) Links</h3>
+<p>Soft (or Symbolic) links are created with the <code>-s</code> option, as in:</p>
+<pre>$ ln -s file1 file3</pre>
+<p>Symbolic links take no extra space on the filesystem (unless their names are very long). They are extremely convenient, as they can easily be modified to point to different places. Unlike hard links, soft links can point to objects even on different filesystems, partitions, and/or disks and other media, which may or may not be currently available or even exist. In the case where the link does not point to a currently available or existing object, you obtain a dangling link.</p>
+
+<h3>Navigating Through Directory History</h3>
+<p>The <code>cd</code> command remembers where you were last and lets you get back there with <code>cd -</code>. For remembering more than just the last directory visited, use <code>pushd</code> to change the directory instead of <code>cd</code>; this pushes your starting directory onto a list. Using <code>popd</code> will then send you back to those directories, walking in reverse order (the most recent directory will be the first one retrieved with <code>popd</code>). The list of directories is displayed with the <code>dirs</code> command.</p>
+
+<h3>Creating and Modifying Files with touch</h3>
+<p>The <code>touch</code> command is often used to set or update the access, change, and modify times of files. By default, it resets a file's timestamp to match the current time. However, you can also create an empty file using <code>touch</code>:</p>
+<pre>$ touch filename</pre>
+<p>This is normally done to create an empty file as a placeholder for a later purpose. The <code>-t</code> option allows you to set the date and timestamp of the file to a specific value:</p>
+<pre>$ touch -t 12091600 myfile</pre>
+<p>This sets the <code>myfile</code> file's timestamp to 4 p.m., December 9th (12 09 1600).</p>
+
+<h3>Creating and Removing Directories</h3>
+<p>The <code>mkdir</code> command is used to create a directory:</p>
+<pre>$ mkdir sampdir</pre>
+<p>It creates a sample directory named <code>sampdir</code> under the current directory.</p>
+<pre>$ mkdir /usr/sampdir</pre>
+<p>It creates a sample directory called <code>sampdir</code> under <code>/usr</code>.</p>
+<p>Removing a directory is done with <code>rmdir</code>. The directory must be empty or the command will fail. To remove a directory and all of its contents you have to use <code>rm -rf</code>.</p>
+
+<h3>Standard File Streams</h3>
+<p>When commands are executed, by default there are three standard file streams (or descriptors) always open for use: standard input (stdin), standard output (stdout), and standard error (stderr).</p>
+<table>
+  <tr>
+    <th>NAME</th>
+    <th>SYMBOLIC NAME</th>
+    <th>VALUE</th>
+    <th>EXAMPLE</th>
+  </tr>
+  <tr>
+    <td>standard input</td>
+    <td>stdin</td>
+    <td>0</td>
+    <td>keyboard</td>
+  </tr>
+  <tr>
+    <td>standard output</td>
+    <td>stdout</td>
+    <td>1</td>
+    <td>terminal</td>
+  </tr>
+  <tr>
+    <td>standard error</td>
+    <td>stderr</td>
+    <td>2</td>
+    <td>log file</td>
+  </tr>
+</table>
+
+<h3>I/O Redirection</h3>
+<p>We can redirect the three standard file streams so that we can get input from either a file or another command, instead of from our keyboard, and we can write output and errors to files or use them to provide input for subsequent commands.</p>
+<p>To redirect input from a file:</p>
+<pre>$ do_something < input-file</pre>
+<p>To redirect output to a file:</p>
+<pre>$ do_something > output-file</pre>
+<p>To redirect both input and output:</p>
+<pre>$ do_something < input-file > output-file</pre>
+<p>To redirect stderr to a file:</p>
+<pre>$ do_something 2> error-file</pre>
+
+<h3>Pipes</h3>
+<p>The UNIX/Linux philosophy is to have many simple and short programs (or commands) cooperate together to produce quite complex results. Extensive use of pipes is made to combine the actions of several commands into one. To pipe the output of one command into another as its input:</p>
+<pre>$ command1 | command2 | command3</pre>
+
+![pipes](https://github.com/user-attachments/assets/43f7e672-6077-4304-aa82-3fd5a1070231)
+<strong><p>Pipes</p></strong>
+
+<h3>Search Utilities</h3>
+
+<h4>locate</h4>
+<p>The <code>locate</code> utility performs a search while taking advantage of a previously constructed database of files and directories on your system, matching all entries that contain a specified character string. To get a shorter list, use <code>grep</code> as a filter:</p>
+<pre>$ locate zip | grep bin</pre>
+
+<h4>find</h4>
+<p>The <code>find</code> utility recurses down the filesystem tree from any particular directory (or set of directories) and locates files that match specified conditions. The default pathname is always the present working directory. Commonly used options include <code>-name</code>, <code>-iname</code>, and <code>-type</code>. To search for files and directories named <code>gcc</code>:</p>
+<pre>$ find /usr -name gcc</pre>
+<p>To search only for directories named <code>gcc</code>:</p>
+<pre>$ find /usr -type d -name gcc</pre>
+
+🚀<b>Snapshots for Linux Command Line Tools : <a link href="Snapshots/Command Line Tools">Click here</a></b>
