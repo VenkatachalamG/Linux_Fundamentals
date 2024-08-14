@@ -709,3 +709,242 @@
 </ul>
 
 🚀<b>Snapshots for Linux Processes (System and User) : <a link href="Snapshots/Processes">Click here</a></b>
+
+<h1>FILESYSTEMS</h1>
+
+<h2>Filesystem Varieties</h2>
+<p>Linux supports a number of native filesystem types, expressly created by Linux developers, such as:</p>
+<ul>
+    <li>ext3</li>
+    <li>ext4</li>
+    <li>squashfs</li>
+    <li>btrfs</li>
+</ul>
+<p>It also offers implementations of filesystems used on other alien operating systems, such as those from:</p>
+<ul>
+    <li>Windows (ntfs, vfat, exfat)</li>
+    <li>SGI (xfs)</li>
+    <li>IBM (jfs)</li>
+    <li>MacOS (hfs, hfs+)</li>
+</ul>
+<p>Many older, legacy filesystems, such as FAT, are also supported.</p>
+<p>The most advanced filesystem types in common use are the journaling varieties: ext4, xfs, btrfs, and jfs. These have many state-of-the-art features and high performance, and are not easy to corrupt accidentally.</p>
+<p>Linux also makes use of network (or distributed) filesystems, where all or part of the filesystem is on external machines. Besides NFS (Network File System) whose usage we will discuss, this includes Ceph, Lustre, and OpenAFS.</p>
+
+<h2>Linux Partitions</h2>
+<p>In most situations, each filesystem on a Linux system occupies a disk partition. Partitions help to organize the contents of disks according to the kind and use of the data contained. One advantage of this kind of isolation by type and variability is that when all available space on a particular partition is exhausted, the system may still operate normally. Furthermore, if data is either corrupted through error or hardware failure, or breached through a security problem, it might be possible to confine problems to an area smaller than the entire system.</p>
+
+![image](https://github.com/user-attachments/assets/8cfed0d1-b7ac-4c62-abcd-6c08626fb8bb)
+<strong><p>Linux Partitions</p></strong>
+
+<h2>Mount Points</h2>
+<p>Before you can start using a filesystem, you need to <strong>mount</strong> it on the filesystem tree at a mount point. This is simply a directory (which may or may not be empty) where the filesystem is to be grafted on.</p>
+<p>NOTE: If you mount a filesystem on a non-empty directory, the former contents of that directory are covered-up and not accessible until the filesystem is unmounted. Thus, mount points are usually empty directories.</p>
+
+![image](https://github.com/user-attachments/assets/eca2e2b1-8758-4113-907f-e25df1be744a)
+<strong><p>Mount Points</p></strong>
+
+<h2>Mounting and Unmounting</h2>
+<p>The <strong>mount</strong> command is used to attach a filesystem (which can be local to the computer or on a network) somewhere within the filesystem tree. The basic arguments are the <strong>device node</strong> and mount point. For example:</p>
+<pre><code>$ sudo mount /dev/sda5 /home</code></pre>
+<p>To unmount the partition, the command would be:</p>
+<pre><code>$ sudo umount /home</code></pre>
+<p>Note the command is <strong>umount</strong>, not <strong>unmount</strong>! If you want it to be automatically available every time the system starts up, you need to edit <code>/etc/fstab</code> accordingly (the name is short for <em>filesystem table</em>).</p>
+
+<h2>NFS and Network Filesystems</h2>
+<p>It is often necessary to share data across physical systems which may be either in the same location or anywhere that can be reached by the Internet. A network (also sometimes called distributed) filesystem may have all its data on one machine or have it spread out on more than one network node.</p>
+<p>The most common such filesystem is named simply <strong>NFS</strong> (the Network Filesystem). It has a very long history and was first developed by Sun Microsystems. Another common implementation is <strong>CIFS</strong> (also termed SAMBA), which has Microsoft roots.</p>
+
+![image](https://github.com/user-attachments/assets/72d335c4-c493-40ad-a50d-88bdeb2e6771)
+<strong><p>NFS Client-Server Architecture</p></strong>
+
+<h3>NFS on the Server</h3>
+<p>On the server machine, NFS uses daemons and other system servers that are started at the command line by typing:</p>
+<pre><code>$ sudo systemctl start nfs</code></pre>
+<p>On some systems, such as RHEL/CentOS, and Fedora, the service is now called <code>nfs-server</code>, not <code>nfs</code>.</p>
+<p>The text file <code>/etc/exports</code> contains the directories and permissions that a host is willing to share with other systems over NFS. A very simple entry in this file may look like the following:</p>
+<pre><code>/projects *.example.com(rw)</code></pre>
+<p>This entry allows the directory <code>/projects</code> to be mounted using NFS with read and write (rw) permissions and shared with other hosts in the example.com domain.</p>
+<p>After modifying the <code>/etc/exports</code> file, you can type <code>exportfs -av</code> to notify Linux about the directories you are allowing to be remotely mounted using NFS. You can also restart NFS with <code>sudo systemctl restart nfs</code>, but this is heavier, as it halts NFS for a short while before starting it up again.</p>
+
+<h2>Overview of User Home Directories</h2>
+<p>Each user has a home directory, usually placed under <code>/home</code>. The <code>/root</code> ("slash-root") directory on modern Linux systems is no more than the home directory of the root user (or superuser or system administrator account).</p>
+
+![image](https://github.com/user-attachments/assets/7a7d270e-7635-4d5a-a0e6-a2db36492b5d)
+<strong><p>Home Directories Overview</p></strong>
+
+<h2>The /bin and /sbin Directories</h2>
+<p>The <code>/bin</code> directory contains executable binaries, essential commands used to boot the system or in single-user mode, and essential commands required by all system users, such as <code>cat</code>, <code>cp</code>, <code>ls</code>, <code>mv</code>, <code>ps</code>, and <code>rm</code>.</p>
+<p>Likewise, the <code>/sbin</code> directory is intended for essential binaries related to system administration, such as <code>fsck</code> and <code>ip</code>.</p>
+
+![image](https://github.com/user-attachments/assets/cc57b1f5-8be3-4a60-949c-4f0f5dd7e6b1)
+<strong><p>bin directory</p></strong>
+
+<h2>The /proc Filesystem</h2>
+<p>Certain filesystems, like the one mounted at <code>/proc</code>, are called <em>pseudo-filesystems</em> because they have no actual permanent presence anywhere on the disk.</p>
+<p>The <code>/proc</code> filesystem contains virtual files that permit viewing constantly changing kernel data.</p>
+
+![image](https://github.com/user-attachments/assets/d9a9958e-5149-4ab0-b1d6-c0c7d5c3f693)
+<strong><p>the proc filesystem</p></strong>
+
+<h2>The /dev Directory</h2>
+<p>The <code>/dev</code> directory contains device nodes, a type of pseudo-file used by most hardware and software devices, except for network devices.</p>
+
+<h2>The /var Directory</h2>
+<p>The <code>/var</code> directory contains files that are expected to change in size and content as the system is running (var stands for variable), such as:</p>
+<ul>
+    <li>System log files: <code>/var/log</code></li>
+    <li>Packages and database files: <code>/var/lib</code></li>
+    <li>Print queues: <code>/var/spool</code></li>
+    <li>Temporary files: <code>/var/tmp</code></li>
+</ul>
+
+<h2>The /etc Directory</h2>
+<p>The <code>/etc</code> directory is the home for system configuration files. It contains no binary programs, although there are some executable scripts.</p>
+
+![image](https://github.com/user-attachments/assets/f2d25df9-6ea4-428a-9614-0a5f10ef1bbb)
+<strong><p>the etc directory</p></strong>
+
+<h2>The /boot Directory</h2>
+<p>The <code>/boot</code> directory contains the few essential files needed to boot the system. For every alternative kernel installed on the system, there are four files:</p>
+<ol>
+    <li><strong>vmlinuz:</strong> The compressed Linux kernel, required for booting.</li>
+    <li><strong>initramfs:</strong> The initial ram filesystem, required for booting, sometimes called initrd, not initramfs.</li>
+    <li><strong>config:</strong> The kernel configuration file, only used for debugging and bookkeeping.</li>
+    <li><strong>System.map:</strong> Kernel symbol table, only used for debugging.</li>
+</ol>
+
+![image](https://github.com/user-attachments/assets/ab9085dd-dc14-4154-b0ce-3047c39154ba)
+<strong><p>the boot directory</p></strong>
+
+<h2>The /lib and /lib64 Directories</h2>
+<p><code>/lib</code> contains libraries (common code shared by applications and needed for them to run) for the essential programs in <code>/bin</code> and <code>/sbin</code>.</p>
+<p>On some Linux distributions there exists a <code>/lib64</code> directory containing 64-bit libraries, while <code>/lib</code> contains 32-bit versions.</p>
+
+![image](https://github.com/user-attachments/assets/cb1206f2-6c98-44ae-a2ef-ee5a08aee369)
+<strong><p>/lib/modules content</p></strong>
+
+<h2>Removable Media: the /media, /run, and /mnt Directories</h2>
+<p>One often uses removable media, such as USB drives, CDs, and DVDs. To make the material accessible through the regular filesystem, it has to be mounted at a convenient location.</p>
+<p>While historically this was done under the <code>/media</code> directory, modern Linux distributions place these mount points under the <code>/run</code> directory. The <code>/mnt</code> directory has been used since the early days of UNIX for temporarily mounting filesystems.</p>
+
+<h2>Using the file Utility</h2>
+<p>In Linux, a file's extension does not, by default, categorize its nature the way it might in other operating systems. For example, one cannot assume that a file named <code>file.txt</code> is a text file and not an executable program. In Linux, a filename is generally more meaningful to the user of the system than the system itself. Most applications directly examine a file's contents to determine its type rather than relying on an extension. This is very different from how Windows handles filenames, where a filename ending with <code>.exe</code>, for example, represents an executable binary file.</p>
+<p>The real nature of a file can be ascertained by using the <code>file</code> utility. For the file names given as arguments, it examines the contents and certain characteristics to determine whether the files are plain text, shared libraries, executable programs, scripts, or something else.</p>
+
+<h2>Backing Up Data</h2>
+<p>There are many ways you can back up data or even your entire system. Basic ways include simple copying with <code>cp</code> and using the more robust <code>rsync</code>.</p>
+<p>Both can be used to synchronize entire directory trees. However, <code>rsync</code> is more efficient because it checks if the file being copied already exists. If the file exists and there is no change in size or modification time, <code>rsync</code> will avoid an unnecessary copy and save time. Furthermore, because <code>rsync</code> copies only the parts of files that have actually changed, it can be very fast.</p>
+<p><code>cp</code> can only copy files to and from destinations on the local machine (unless you are copying to or from a filesystem mounted using NFS), but <code>rsync</code> can also be used to copy files from one machine to another. Locations are designated in the <code>target:path</code> form, where <code>target</code> can be in the form of <code>someone@host</code>. The <code>someone@</code> part is optional and used if the remote user is different from the local user.</p>
+<p><code>rsync</code> is very efficient when recursively copying one directory tree to another because only the differences are transmitted over the network. One often synchronizes the destination directory tree with the origin, using the <code>-r</code> option to recursively walk down the directory tree copying all files and directories below the one listed as the source.</p>
+
+<h3>Using rsync</h3>
+<p><code>rsync</code> is a very powerful utility. For example, a very useful way to back up a project directory might be to use the following command:</p>
+<pre><code>$ rsync -r project-X archive-machine:archives/project-X</code></pre>
+<p>Note that <code>rsync</code> can be very destructive! Accidental misuse can do a lot of harm to data and programs by inadvertently copying changes to where they are not wanted. Take care to specify the correct options and paths. It is highly recommended that you first test your <code>rsync</code> command using the <code>--dry-run</code> option to ensure that it provides the results that you want.</p>
+<p>To use <code>rsync</code> at the command prompt, type <code>rsync sourcefile destinationfile</code>, where either file can be on the local machine or on a networked machine. The contents of <code>sourcefile</code> will be copied to <code>destinationfile</code>.</p>
+<p>A good combination of options is shown in:</p>
+<pre><code>$ rsync --progress -avrxH --delete sourcedir destdir</code></pre>
+
+<h2>Compressing Data</h2>
+<p>File data is often compressed to save disk space and reduce the time it takes to transmit files over networks.</p>
+<p>Linux uses a number of methods to perform this compression, including:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Command</th>
+            <th>Usage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>gzip</code></td>
+            <td>The most frequently used Linux compression utility</td>
+        </tr>
+        <tr>
+            <td><code>bzip2</code></td>
+            <td>Produces files significantly smaller than those produced by <code>gzip</code></td>
+        </tr>
+        <tr>
+            <td><code>xz</code></td>
+            <td>The most space-efficient compression utility used in Linux</td>
+        </tr>
+        <tr>
+            <td><code>zip</code></td>
+            <td>Is often required to examine and decompress archives from other operating systems</td>
+        </tr>
+    </tbody>
+</table>
+<p>These techniques vary in the efficiency of the compression (how much space is saved) and in how long they take to compress; generally, the more efficient techniques take longer. Decompression time does not vary as much across different methods.</p>
+<p>In addition, the <code>tar</code> utility is often used to group files in an archive and then compress the whole archive at once.</p>
+
+<h3>Handling Files Using zip</h3>
+<p>While the <code>zip</code> program is rarely used to compress files in Linux, it may be needed to examine and decompress archives from other operating systems. It is only used in Linux when you get a zipped file from a Windows user or environment or from Internet downloads. It is a legacy program. It is neither fast nor efficient.</p>
+<h2>Table: <code>zip</code> Usage Examples</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Command</th>
+            <th>Usage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>zip backup *</code></td>
+            <td>Compresses all files in the current directory and places them in the <code>backup.zip</code>.</td>
+        </tr>
+        <tr>
+            <td><code>zip -r backup.zip ~</code></td>
+            <td>Archives your login directory (~) and all files and directories under it in <code>backup.zip</code>.</td>
+        </tr>
+        <tr>
+            <td><code>unzip backup.zip</code></td>
+            <td>Extracts all files in <code>backup.zip</code> and places them in the current directory.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Archiving and Compressing Data Using <code>tar</code></h2>
+<p>Historically, <code>tar</code> stood for "tape archive" and was used to archive files to a magnetic tape. It allows you to create or extract files from an archive file, often called a tarball. At the same time, you can optionally compress while creating the archive, and decompress while extracting its contents.</p>
+
+<h2>Table: <code>tar</code> Usage Examples</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Command</th>
+            <th>Usage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>tar xvf mydir.tar</code></td>
+            <td>Extract all the files in <code>mydir.tar</code> into the <code>mydir</code> directory.</td>
+        </tr>
+        <tr>
+            <td><code>tar zcvf mydir.tar.gz mydir</code></td>
+            <td>Create the archive and compress with <code>gzip</code>.</td>
+        </tr>
+        <tr>
+            <td><code>tar jcvf mydir.tar.bz2 mydir</code></td>
+            <td>Create the archive and compress with <code>bz2</code>.</td>
+        </tr>
+        <tr>
+            <td><code>tar Jcvf mydir.tar.xz mydir</code></td>
+            <td>Create the archive and compress with <code>xz</code>.</td>
+        </tr>
+        <tr>
+            <td><code>tar xvf mydir.tar.gz</code></td>
+            <td>Extract all the files in <code>mydir.tar.gz</code> into the <code>mydir</code> directory.</td>
+        </tr>
+    </tbody>
+</table>
+<p><strong>Note:</strong> You do <em>not</em> have to tell <code>tar</code> it is in <code>gzip</code> format.</p>
+
+<p>Use of a dash (“-”) before options is often done, although it is usually unnecessary, as in <code>tar -xvf mydir.tar</code>.</p>
+<p>You can separate out the archiving and compression stages, as in:</p>
+<pre><code>$ tar cvf mydir.tar mydir ; gzip mydir.tar
+$ gunzip mydir.tar.gz ; tar xvf mydir.tar</code></pre>
+<p>but this is slower and wastes space by creating an unneeded intermediary <code>.tar</code> file.</p>
+
+🚀<b>Snapshots for Linux filesystems : <a link href="Snapshots/Filesystems">Click here</a></b>
