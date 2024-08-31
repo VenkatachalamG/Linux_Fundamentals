@@ -948,3 +948,212 @@ $ gunzip mydir.tar.gz ; tar xvf mydir.tar</code></pre>
 <p>but this is slower and wastes space by creating an unneeded intermediary <code>.tar</code> file.</p>
 
 🚀<b>Snapshots for Linux filesystems : <a link href="Snapshots/Filesystems">Click here</a></b>
+
+<h1>Text Editors in Linux</h1>
+
+<p>Linux users and administrators may sidestep using a text editor, instead employing graphical utilities for creating and modifying system configuration files. However, this can be both more laborious than directly using a text editor and more limited in capability. In fact, word processing applications (including those that are part of common office application suites) are not really basic text editors; they add a lot of extra (usually invisible) formatting information that will probably render system administration configuration files unusable for their intended purpose. Thus, knowing how to confidently use one or more text editors is really an essential skill to have for Linux.</p>
+
+![image](https://github.com/user-attachments/assets/28b67632-41dc-4a9d-896d-58881f243b84)
+<strong><p>Linux text editors</strong></p>
+
+<p>By now, you have certainly realized Linux is packed with choices; when it comes to text editors, there are many choices, ranging from quite simple to very complex, including:</p>
+
+<ul>
+    <li>nano</li>
+    <li>gedit</li>
+    <li>vi</li>
+    <li>emacs</li>
+</ul>
+
+<p>In this section, we learn first about the <strong>nano</strong> and <strong>gedit</strong> editors, which are relatively simple and easy to learn, and then later the more complicated choices, <strong>vi</strong> and <strong>emacs</strong>.</p>
+
+<p>Another product that has gained in usage and popularity is Microsoft’s Visual Studio Code, usually abbreviated as <strong>code</strong> when used in Linux. This is actually a fully featured integrated development environment and far from lightweight, but many new Linux users are already used to it from working in other operating systems. Installation details vary from one distribution to another and usually involve incorporating additional package repositories; we will not go into how to do this here.</p>
+
+<h2>Creating Files Without Using an Editor</h2>
+
+<p>Sometimes, you may want to create a short file and not want to bother invoking a full text editor. Furthermore, doing so can be quite useful when used from within scripts, even when creating longer files. You will no doubt find yourself using this method when you start on the later chapters that cover shell scripting!</p>
+
+<p>If you want to create a file without using an editor, there are two standard ways to create one from the command line and fill it with content.</p>
+
+<p>The first is to use <strong>echo</strong> repeatedly:</p>
+
+<pre>
+<code>$ echo line one > myfile
+$ echo line two >> myfile
+$ echo line three >> myfile</code>
+</pre>
+
+<p>Note that while a single greater-than sign (<strong>&gt;</strong>) will send the output of a command to a file (and obliterate any already existing version of that file!), two of them (<strong>&gt;&gt;</strong>) will append the new output to an existing file.</p>
+
+<p>The second way is to use <strong>cat</strong> combined with redirection:</p>
+
+<pre>
+<code>$ cat << EOF > myfile
+&gt; line one
+&gt; line two
+&gt; line three
+&gt; EOF
+$</code>
+</pre>
+
+<p>In this example, the string used to show the beginning and end of the process need not be <strong>EOF</strong>; it could be <strong>STOP</strong> or any other string not used in the content itself. Both techniques produce a file with the following lines in it:</p>
+
+<pre>
+<code>line one
+line two
+line three</code>
+</pre>
+
+<p>and are extremely useful when employed by scripts.</p>
+
+<h2>nano</h2>
+
+<p><strong>nano</strong> is easy to use, and requires very little effort to learn. To open a file, type <code>nano &lt;filename&gt;</code> and press <strong>Enter</strong>. If the file does not exist, it will be created.</p>
+
+<p><strong>nano</strong> provides a two line shortcut bar at the bottom of the screen that lists the available commands. Some of these commands are:</p>
+
+<ul>
+    <li><strong>CTRL-G</strong>: Display the help screen.</li>
+    <li><strong>CTRL-O</strong>: Write to a file.</li>
+    <li><strong>CTRL-X</strong>: Exit a file.</li>
+    <li><strong>CTRL-R</strong>: Insert contents from another file to the current buffer.</li>
+    <li><strong>CTRL-C</strong>: Show cursor position.</li>
+</ul>
+
+![image](https://github.com/user-attachments/assets/1e879c9a-ac25-430c-83e9-e0e66d02540c)
+<strong><p>nano</strong></p>
+
+<h2>vi and emacs</h2>
+
+<p>Developers and administrators experienced in working on UNIX-like systems almost always use one of the two venerable editing options: <strong>vi</strong> and <strong>emacs</strong>. Both are present or easily available on all distributions and are completely compatible with the versions available on other operating systems.</p>
+
+<p>Both vi and emacs have a basic, purely text-based form that can run in a non-graphical environment. They also have one or more graphical interface forms with extended capabilities; these may be friendlier for a less experienced user. While vi and emacs can have significantly steep learning curves for new users, they are extremely efficient when one has learned how to use them.</p>
+
+<p>You need to be aware that fights among seasoned users over which editor is better can be quite intense and are often described as a holy war. It is clear, however, that there are many more users of vi than there are of emacs. Both editing programs are here to stay no matter what.</p>
+
+<h3>Introduction to vi</h3>
+
+<p>Usually, the actual program installed on your system is <strong>vim</strong>, which stands for <em>Vi IMproved</em> and is aliased to the name vi. The name is pronounced as “vee-eye”.</p>
+
+<p>Even if you do not want to use <strong>vi</strong>, it is good to gain some familiarity with it: it is a standard tool installed on virtually all Linux distributions. Indeed, there may be times when there is no other editor available on the system.</p>
+
+<p>GNOME extends vi with a very graphical interface known as <strong>gvim</strong> and KDE offers <strong>kvim</strong>. Either of these may be easier to use at first.</p>
+
+<p>When using <strong>vi</strong>, all commands are entered through the keyboard. You do not need to keep moving your hands to use a pointer device such as a mouse or touchpad, unless you want to do so when using one of the graphical versions of the editor.</p>
+
+<h4>Modes in vi</h4>
+
+<p><strong>vi</strong> provides three modes, as described in the table below. It is vital to not lose track of which mode you are in. Many keystrokes and commands behave quite differently in different modes.</p>
+
+<table>
+    <tr>
+        <th>Mode</th>
+        <th>Feature</th>
+    </tr>
+    <tr>
+        <td>Command</td>
+        <td>By default, vi starts in Command mode. Each key is an editor command. Keyboard strokes are interpreted as commands that can modify file contents.</td>
+    </tr>
+    <tr>
+        <td>Insert</td>
+        <td>Type <strong>i</strong> to switch to Insert mode from Command mode. Insert mode is used to enter (insert) text into a file. Insert mode is indicated by an “? INSERT ?” indicator at the bottom of the screen. Press <strong>Esc</strong> to exit Insert mode and return to Command mode.</td>
+    </tr>
+    <tr>
+        <td>Line</td>
+        <td>Type <strong>:</strong> to switch to the Line mode from Command mode. Each key is an external command, including operations such as writing the file contents to disk or exiting. Press <strong>Esc</strong> to exit Line mode and return to Command mode.</td>
+    </tr>
+</table>
+
+<h4>Basic vi Commands</h4>
+
+<table>
+    <tr>
+        <th>Command</th>
+        <th>Usage</th>
+    </tr>
+    <tr>
+        <td>vi myfile</td>
+        <td>Start the editor and edit <strong>myfile</strong></td>
+    </tr>
+    <tr>
+        <td>vi -r myfile</td>
+        <td>Start and edit <strong>myfile</strong> in recovery mode from a system crash</td>
+    </tr>
+    <tr>
+        <td>:r file2</td>
+        <td>Read in <strong>file2</strong> and insert at current position</td>
+    </tr>
+    <tr>
+        <td>:w</td>
+        <td>Write to the file</td>
+    </tr>
+    <tr>
+        <td>:w myfile</td>
+        <td>Write out to <strong>myfile</strong></td>
+    </tr>
+    <tr>
+        <td>:w! file2</td>
+        <td>Overwrite <strong>file2</strong></td>
+    </tr>
+    <tr>
+        <td>:x or :wq</td>
+        <td>Exit and write out modified file</td>
+    </tr>
+    <tr>
+        <td>:q</td>
+        <td>Quit</td>
+    </tr>
+    <tr>
+        <td>:q!</td>
+        <td>Quit even though modifications have not been saved</td>td>
+    </tr>
+</table>
+
+<h3>Introduction to emacs</h3>
+
+<p>The emacs editor is a popular competitor for vi. Unlike vi, it does not work with modes. <strong>emacs</strong> is highly customizable and includes a large number of features. It was initially designed for use on a console, but was soon adapted to work with a GUI as well. emacs has many other capabilities other than simple text editing. For example, it can be used for email, debugging, etc.</p>
+
+<p>Rather than having different modes for command and insert, like vi, emacs uses the <strong>CTRL</strong> and Meta (<strong>Alt</strong> or <strong>Esc</strong>) keys for special commands.</p>
+
+<h4>Working with emacs</h4>
+
+
+![image](https://github.com/user-attachments/assets/29887516-d97d-4231-8124-6f257ebea212)
+<strong><p>emacs</strong></p>
+
+<p>The table lists some of the most important key combinations that are used when starting, exiting, reading, and writing files in emacs.</p>
+
+<table>
+    <tr>
+        <th>Key</th>
+        <th>Usage</th>
+    </tr>
+    <tr>
+        <td>emacs myfile</td>
+        <td>Start emacs and edit <strong>myfile</strong></td>
+    </tr>
+    <tr>
+        <td>CTRL-x i</td>
+        <td>Insert prompted for file at current position</td>
+    </tr>
+    <tr>
+        <td>CTRL-x s</td>
+        <td>Save all files</td>
+    </tr>
+    <tr>
+        <td>CTRL-x CTRL-w</td>
+        <td>Write to the file giving a new name when prompted</td>
+    </tr>
+    <tr>
+        <td>CTRL-x CTRL-s</td>
+        <td>Saves the current file</td>
+    </tr>
+    <tr>
+        <td>CTRL-x CTRL-c</td>
+        <td>Exit after being prompted to save any modified files</td>
+    </tr>
+</table>
+
+<p>The emacs tutorial is a good place to start learning basic commands. It is available any time when in emacs by simply typing <strong>CTRL-h</strong> (for help) and then the letter <strong>t</strong> for tutorial.</p>
+
+🚀<b>Snapshots for Linux Text Editors : <a link href="Snapshots/Text editors">Click here</a></b>
