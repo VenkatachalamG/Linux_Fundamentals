@@ -1157,3 +1157,96 @@ line three</code>
 <p>The emacs tutorial is a good place to start learning basic commands. It is available any time when in emacs by simply typing <strong>CTRL-h</strong> (for help) and then the letter <strong>t</strong> for tutorial.</p>
 
 🚀<b>Snapshots for Linux Text Editors : <a link href="Snapshots/Text editors">Click here</a></b>
+
+<h2>Identifying the Current User</h2>
+<p>As you know, Linux is a multi-user operating system, meaning more than one user can log on at the same time.</p>
+<ul>
+  <li>To identify the current user, type <code>whoami</code>.</li>
+  <li>To list the currently logged-on users, type <code>who</code>.</li>
+</ul>
+<p>Giving <code>who</code> the <code>-a</code> option will give more detailed information.</p>
+
+<h2>User Startup Files</h2>
+<p>In Linux, the command shell program (generally <code>bash</code>) uses one or more startup files to configure the user environment. Files in the <code>/etc</code> directory define global settings for all users, while initialization files in the user's home directory can include and/or override the global settings.</p>
+<p>The startup files can do anything the user would like to do in every command shell, such as:</p>
+<ul>
+  <li>Customizing the prompt</li>
+  <li>Defining command line shortcuts and aliases</li>
+  <li>Setting the default text editor</li>
+  <li>Setting the path for where to find executable programs</li>
+</ul>
+
+<h3>Order of the Startup Files</h3>
+<p>The standard prescription is that when you first log in to Linux, <code>/etc/profile</code> is read and evaluated, after which the following files are searched (if they exist) in the listed order:</p>
+<ol>
+  <li><code>~/.bash_profile</code></li>
+  <li><code>~/.bash_login</code></li>
+  <li><code>~/.profile</code></li>
+</ol>
+<p>The Linux login shell evaluates whatever startup file that it comes across first and ignores the rest. Most commonly, users only fiddle with <code>~/.bashrc</code>, as it is invoked every time a new command line shell initiates or another program is launched from a terminal window.</p>
+
+
+![image](https://github.com/user-attachments/assets/b6b036a8-eb2e-49be-8c71-19be5c34fb2f)
+<strong><p>Order of Startup Files</p></strong>
+
+<h3>Creating Aliases</h3>
+<p>You can create customized commands or modify the behavior of already existing ones by creating <code>aliases</code>. Most often, these aliases are placed in your <code>~/.bashrc</code> file so they are available to any command shells you create. Typing <code>alias</code> with no arguments will list currently defined aliases.</p>
+
+<h2>Basics of Users and Groups</h2>
+<p>All Linux users are assigned a unique user ID (<code>uid</code>), which is just an integer; normal users start with a <code>uid</code> of 1000 or greater. Linux uses <code>groups</code> for organizing users. Access rights to files (and devices) are granted on the basis of the user and the group they belong to.</p>
+
+<h2>Adding and Removing Users</h2>
+<p>Adding a new user is done with <code>useradd</code> and removing an existing user is done with <code>userdel</code>. In the simplest form:</p>
+<pre><code>$ sudo useradd bjmoose</code></pre>
+<p>Removing a user account:</p>
+<pre><code>$ sudo userdel bjmoose</code></pre>
+
+<h2>Adding and Removing Groups</h2>
+<p>Adding a new group:</p>
+<pre><code>$ sudo groupadd anewgroup</code></pre>
+<p>Adding a user to an already existing group:</p>
+<pre><code>$ sudo usermod -a -G anewgroup rjsquirrel</code></pre>
+
+<h2>Elevating to root Account</h2>
+<p>To temporarily become the superuser for a series of commands, you can type <code>su</code>. To execute just one command with root privilege, type <code>sudo &lt;command&gt;</code>.</p>
+
+<h2>Environment Variables</h2>
+<p>Environment variables are quantities that have specific values which may be utilized by the command shell, such as <code>bash</code>, or other utilities and applications.</p>
+
+![image](https://github.com/user-attachments/assets/3d5b23b1-95ef-45d6-9928-986796fad1a2)
+<strong><p>Elevating to Root Account</p></strong>
+
+<h2>Setting Environment Variables</h2>
+<p>By default, variables created within a script are only available to the current shell; child processes (sub-shells) will not have access to values that have been set or modified. To allow child processes to see the values, use the <code>export</code> command.</p>
+
+<h2>The HOME Variable</h2>
+<p><code>HOME</code> is an environment variable that represents the home (or login) directory of the user.</p>
+
+<h2>The PATH Variable</h2>
+<p><code>PATH</code> is an ordered list of directories which is scanned when a command is given to find the appropriate program or script to run. Each directory in the path is separated by colons (<code>:</code>).</p>
+
+<h2>The PS1 Variable and the Command Line Prompt</h2>
+<p>Prompt Statement (PS) is used to customize your prompt string in your terminal windows to display the information you want.</p>
+<pre><code>export PS1='\u@\h:\w$ '</code></pre>
+
+<h2>Recalling Previous Commands</h2>
+<p><code>bash</code> keeps track of previously entered commands and statements in a history buffer. You can recall previously used commands simply by using the <code>Up</code> and <code>Down</code> cursor keys.</p>
+
+<h2>Keyboard Shortcuts</h2>
+<p>Some useful keyboard shortcuts:</p>
+<ul>
+  <li><strong>CTRL-L:</strong> Clears the screen</li>
+  <li><strong>CTRL-S:</strong> Temporarily halt output to the terminal window</li>
+  <li><strong>CTRL-Q:</strong> Resume output to the terminal window</li>
+  <li><strong>CTRL-C:</strong> Kills the current process</li>
+  <li><strong>CTRL-A:</strong> Goes to the beginning of the line</li>
+  <li><strong>Tab:</strong> Auto-completes files, directories, and binaries</li>
+</ul>
+
+<h2>File Permission Modes and chmod</h2>
+<p>Files have three kinds of permissions: read (<code>r</code>), write (<code>w</code>), and execute (<code>x</code>). These permissions affect three groups of owners: user/owner (<code>u</code>), group (<code>g</code>), and others (<code>o</code>).</p>
+<pre><code>$ chmod 755 somefile</code></pre>
+<p><strong>$ ls -l somefile</strong></p>
+<pre>-rwxr-xr-x 1 student student 1601 Mar 9 15:04 somefile</pre>
+
+🚀<b>Snapshots for Linux filesystems : <a link href="Snapshots/User Environment">Click here</a></b>
